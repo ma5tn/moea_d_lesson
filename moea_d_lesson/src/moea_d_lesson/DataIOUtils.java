@@ -4,6 +4,8 @@ import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 /**
  * TestData の読み込みのためのクラス
@@ -21,7 +23,13 @@ public class DataIOUtils {
         String line;
         int count = 0;
         while ((line = br.readLine()) != null) {
-            System.out.println(++count + "行目：" + line);
+          Pattern p = Pattern.compile("^knapsac");
+          Matcher m = p.matcher(line);
+
+        if (m.find()){
+          System.out.println(line);
+        }else{
+        }
         }
 
         //終了処理
