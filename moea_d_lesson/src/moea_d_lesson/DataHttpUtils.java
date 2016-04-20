@@ -21,6 +21,8 @@ public class DataHttpUtils {
         String s = null;
         File file = new File("knapsacTestData.txt");
         PrintWriter pw = new PrintWriter(new BufferedWriter(new FileWriter(file)));
+//        s = in.readLine();
+//        s = in.readLine();
         while ( (s = in.readLine()) != null) {
             pw.println(s);
         }

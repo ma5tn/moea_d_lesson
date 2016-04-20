@@ -20,7 +20,7 @@ public class Item {
     return profit;
   }
 
-  public int getWeightt(){
+  public int getWeight(){
     return weight;
   }
 }

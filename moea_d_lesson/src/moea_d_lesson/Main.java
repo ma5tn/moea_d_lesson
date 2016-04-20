@@ -6,9 +6,13 @@ public class Main {
 
   public static void main(String[] args) {
     // TODO 自動生成されたメソッド・スタブ
-    ArrayList<Item> items = new ArrayList<Item>();
-    DataIOUtils.readData("knapsacTestData.txt", items);
+    ArrayList<Knapsac> knapsacs = new ArrayList<Knapsac>(Knapsac.KNAPSAC_NUM);
+    DataIOUtils.readData("knapsacTestData.txt", knapsacs);
 
+    for(Knapsac n : knapsacs){
+      System.out.println("capacity " + n.getCapacity());
+      n.printKnapsac();
+    }
 
   }
 
