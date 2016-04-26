@@ -16,7 +16,7 @@ public class WeightIndivisual {
   /*
    * 重みの値を格納した大きさ2の配列
    */
-  private ArrayList<Integer> weight = new ArrayList<Integer>(Knapsac.KNAPSAC_NUM);
+  private ArrayList<Double> weight = new ArrayList<Double>(Knapsac.KNAPSAC_NUM);
 
   /*
    * 近傍ベクトルのインデックスを登録した配列。大きさは近傍数T=10
@@ -27,11 +27,19 @@ public class WeightIndivisual {
     gene = g;
   }
 
-  public void setWeight(ArrayList<Integer> w){
+  public void setWeight(ArrayList<Double> w){
     weight = w;
   }
 
   public void addNeightboehood(ArrayList<Integer> n){
     neightborhood = n;
+  }
+
+  public ArrayList<Double> getWeight(){
+    return weight;
+  }
+
+  public ArrayList<Integer> getGene() {
+    return gene;
   }
 }

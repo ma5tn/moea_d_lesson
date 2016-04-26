@@ -14,6 +14,9 @@ public class Main {
       n.printKnapsac();
     }
 
+    WeightPopulation wp = new WeightPopulation();
+    wp.printWeightPopulation();
+
   }
 
 }
