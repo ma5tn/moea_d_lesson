@@ -2,7 +2,6 @@ package moea_d_lesson;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Random;
 
 public class WeightPopulation {
 
@@ -16,7 +15,6 @@ public class WeightPopulation {
    */
   public ArrayList<WeightIndivisual> population = new ArrayList<WeightIndivisual>();
 
-  Random rnd = new Random();
 
   /*
    * 重みベクトルの設定、遺伝子の初期化
@@ -29,11 +27,6 @@ public class WeightPopulation {
           WeightIndivisual wp = new WeightIndivisual();
           ArrayList<Double> w = new ArrayList<Double>(Arrays.asList((double)i/200, (double)j/200));
           wp.setWeight(w);
-          ArrayList<Integer> g = new ArrayList<Integer>();
-          for(int k = 0; k < 10; k++){
-            g.add(rnd.nextInt(2));
-          }
-          wp.setGene(g);
           population.add(wp);
           System.out.println("!!!");
         }
