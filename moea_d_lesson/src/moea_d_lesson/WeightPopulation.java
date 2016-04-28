@@ -17,7 +17,7 @@ public class WeightPopulation {
 
 
   /*
-   * 重みベクトルの設定、遺伝子の初期化
+   * 重みベクトルの設定
    */
   public WeightPopulation(){
     for(int i = 0; i <= DIVISION_NUM; i++){
