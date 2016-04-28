@@ -7,7 +7,8 @@ public class WeightIndivisual {
   /*
    * 近傍数T=10
    */
-  public final int NEIGHBORHOOD = 10;
+  public final static int NEIGHBORHOOD = 10;
+
   /*
    * 遺伝子。要素は0または1、大きさ500の配列
    */
@@ -21,7 +22,7 @@ public class WeightIndivisual {
   /*
    * 近傍ベクトルのインデックスを登録した配列。大きさは近傍数T=10
    */
-  private ArrayList<Integer> neightborhood = new ArrayList<Integer>(NEIGHBORHOOD);
+  private ArrayList<Integer> neighborhood = new ArrayList<Integer>(NEIGHBORHOOD);
 
   public void setGene(ArrayList<Integer> g){
     gene = g;
@@ -31,8 +32,8 @@ public class WeightIndivisual {
     weight = w;
   }
 
-  public void addNeightboehood(ArrayList<Integer> n){
-    neightborhood = n;
+  public void setNeighborhood(ArrayList<Integer> n){
+    neighborhood = n;
   }
 
   public ArrayList<Double> getWeight(){

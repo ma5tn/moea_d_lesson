@@ -16,6 +16,7 @@ public class Main {
 
     WeightPopulation wp = new WeightPopulation();
     wp.printWeightPopulation();
+    wp.searchNeighborhoodVector(WeightIndivisual.NEIGHBORHOOD);
 
   }
 

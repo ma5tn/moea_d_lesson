@@ -12,11 +12,6 @@ public class WeightPopulation {
   public final int DIVISION_NUM = 200;
 
   /*
-   * 近傍数T=10
-   */
-  public final int NEIGHBORHOOD = 10;
-
-  /*
    * 1世代の集団
    */
   public ArrayList<WeightIndivisual> population = new ArrayList<WeightIndivisual>();
@@ -24,7 +19,7 @@ public class WeightPopulation {
   Random rnd = new Random();
 
   /*
-   * 重みベクトルの設定、遺伝子の初期化、近傍ベクトルの登録
+   * 重みベクトルの設定、遺伝子の初期化
    */
   public WeightPopulation(){
     for(int i = 0; i <= DIVISION_NUM; i++){
@@ -43,6 +38,29 @@ public class WeightPopulation {
           System.out.println("!!!");
         }
       }
+    }
+  }
+
+  public void searchNeighborhoodVector(int T){
+    for(int i = 0; i <= DIVISION_NUM; i++){
+      ArrayList<Integer> neighborhood = new ArrayList<Integer>(T);
+      if(i < (double)T/2){
+        for(int k = 0; k < 10; k++){
+          neighborhood.add(k);
+        }
+      }else if(i < DIVISION_NUM - ((double)T/2 - 1)){
+        for(int k = 4; 0 < k; k--){
+          neighborhood.add(i - k);
+        }
+        for(int k = 0; k < 6; k++){
+          neighborhood.add(i + k);
+        }
+      }else{
+        for(int k = 8 ; -1 <= k ; k--){
+          neighborhood.add(DIVISION_NUM - k);
+        }
+      }
+      population.get(i).setNeighborhood(neighborhood);
     }
   }
 
