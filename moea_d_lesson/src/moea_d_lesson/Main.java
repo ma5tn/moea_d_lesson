@@ -3,6 +3,7 @@ package moea_d_lesson;
 import java.util.ArrayList;
 
 public class Main {
+  public final static int GENERATION_NUM = 1000;
 
   public static void main(String[] args) {
     // TODO 自動生成されたメソッド・スタブ
@@ -14,10 +15,12 @@ public class Main {
       n.printKnapsac();
     }
 
-    WeightPopulation wp = new WeightPopulation();
+    WeightPopulation wp = new WeightPopulation(knapsacs);
     wp.printWeightPopulation();
-    wp.searchNeighborhoodVector(WeightIndivisual.NEIGHBORHOOD);
 
+    for(int i = 0; i < GENERATION_NUM; i++){
+      wp.Generation();
+    }
   }
 
 }

@@ -20,6 +20,11 @@ public class WeightIndivisual extends Indivisual{
    */
   private ArrayList<Integer> neighborhood = new ArrayList<Integer>(NEIGHBORHOOD);
 
+  /*
+   * 適応度
+   */
+  private double fitness;
+
   WeightIndivisual(){
     super();
   }
@@ -36,8 +41,15 @@ public class WeightIndivisual extends Indivisual{
     return weight;
   }
 
-
   public ArrayList<Integer> getNeighborhood() {
     return neighborhood;
+  }
+
+  public double getFitness() {
+    return fitness;
+  }
+
+  public void setFitness(double fitness) {
+    this.fitness = fitness;
   }
 }

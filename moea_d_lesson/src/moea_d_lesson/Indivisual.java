@@ -13,7 +13,7 @@ public class Indivisual {
   Random rnd = new Random();
 
   Indivisual(){
-    for(int k = 0; k < 10; k++){
+    for(int k = 0; k < Knapsac.ITEM_NUM; k++){
       gene.add(rnd.nextInt(2));
     }
   }
