@@ -1,5 +1,10 @@
 package moea_d_lesson;
 
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.ArrayList;
 
 public class Main {
@@ -16,11 +21,24 @@ public class Main {
     }
 
     WeightPopulation wp = new WeightPopulation(knapsacs);
-    wp.printWeightPopulation();
+   // wp.printWeightPopulation();
+
+    File file = new File("result.txt");
+    try{
+    PrintWriter pw = new PrintWriter(new BufferedWriter(new FileWriter(file)));
 
     for(int i = 0; i < GENERATION_NUM; i++){
-      wp.Generation();
+
+      ArrayList<WeightIndivisual> newPopulation = wp.generation(knapsacs);
+      wp.setPopulation(newPopulation);
+      wp.printAllWeightWitness(pw);
+      pw.println("-------------");
+    }
+    pw.close();
+    }catch(IOException e){
+      System.out.println(e);
     }
   }
+
 
 }

@@ -21,13 +21,34 @@ public class WeightIndivisual extends Indivisual{
   private ArrayList<Integer> neighborhood = new ArrayList<Integer>(NEIGHBORHOOD);
 
   /*
-   * 適応度
+   * 重みを適用した適応度
    */
-  private double fitness;
+  private double weightFitness;
 
-  WeightIndivisual(){
-    super();
+  /*
+   * コンストラクタ
+   */
+  WeightIndivisual(ArrayList<Knapsac> knapsacs){
+    super(knapsacs);
   }
+
+  /*
+   * weightFitnessを計算する
+   */
+  public void calcWeightFitness(ArrayList<Knapsac> knapsacs){
+    double f = 0;
+    calcFitness(knapsacs);
+    try{
+      for(int i = 0; i < Knapsac.KNAPSAC_NUM; i++){
+        f += fitness.get(i) * weight.get(i);
+      }
+    }catch(NullPointerException e){
+      System.out.println("重みが設定されていません");
+    }
+    weightFitness = f;
+  }
+
+  //以下 setter & getter
 
   public void setWeight(ArrayList<Double> w){
     weight = w;
@@ -45,11 +66,12 @@ public class WeightIndivisual extends Indivisual{
     return neighborhood;
   }
 
-  public double getFitness() {
-    return fitness;
+  public double getWeightFitness() {
+    return weightFitness;
   }
 
-  public void setFitness(double fitness) {
-    this.fitness = fitness;
+  public void setWeightFitness(double weightFitness) {
+    this.weightFitness = weightFitness;
   }
+
 }

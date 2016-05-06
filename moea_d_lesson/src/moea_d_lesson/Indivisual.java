@@ -8,13 +8,38 @@ public class Indivisual {
   /*
    * 遺伝子。要素は0または1、大きさ500の配列
    */
-  private ArrayList<Integer> gene = new ArrayList<Integer>(Knapsac.ITEM_NUM);
+  protected ArrayList<Integer> gene = new ArrayList<Integer>(Knapsac.ITEM_NUM);
 
-  Random rnd = new Random();
+  /*
+   * 適応度のArrayList
+   */
+  protected ArrayList<Double> fitness = new ArrayList<Double>(Knapsac.KNAPSAC_NUM);
 
-  Indivisual(){
+
+  private Random rnd = new Random();
+
+  Indivisual(ArrayList<Knapsac> knapsacs){
     for(int k = 0; k < Knapsac.ITEM_NUM; k++){
       gene.add(rnd.nextInt(2));
+    }
+
+    calcFitness(knapsacs);
+  }
+
+  protected void calcFitness(ArrayList<Knapsac> knapsacs) {
+    for(Knapsac k: knapsacs){
+      double profit = 0; double weight = 0;
+      for(int i = 0; i < Knapsac.ITEM_NUM; i++){
+        if(i == 1){
+          weight += k.getItems().get(i).getWeight();
+          profit += k.getItems().get(i).getProfit();
+          if( k.getCapacity() < weight){
+            profit = 0;
+            break;
+          }
+        }
+      }
+      fitness.add(profit);
     }
   }
 
@@ -24,6 +49,14 @@ public class Indivisual {
 
   public ArrayList<Integer> getGene() {
     return gene;
+  }
+
+  public ArrayList<Double> getFitness() {
+    return fitness;
+  }
+
+  public void setFitness(ArrayList<Double> fitness) {
+    this.fitness = fitness;
   }
 
 }
