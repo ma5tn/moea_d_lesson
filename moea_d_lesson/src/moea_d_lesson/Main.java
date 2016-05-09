@@ -27,12 +27,13 @@ public class Main {
     try{
     PrintWriter pw = new PrintWriter(new BufferedWriter(new FileWriter(file)));
 
+    wp.printAllWeightWitness(pw);
     for(int i = 0; i < GENERATION_NUM; i++){
 
-      ArrayList<WeightIndivisual> newPopulation = wp.generation(knapsacs);
-      wp.setPopulation(newPopulation);
+      wp.generation(knapsacs);
       wp.printAllWeightWitness(pw);
       pw.println("-------------");
+      wp.printWeightFitnessAverage();
     }
     pw.close();
     }catch(IOException e){

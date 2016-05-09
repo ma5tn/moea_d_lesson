@@ -30,7 +30,7 @@ public class Indivisual {
     for(Knapsac k: knapsacs){
       double profit = 0; double weight = 0;
       for(int i = 0; i < Knapsac.ITEM_NUM; i++){
-        if(i == 1){
+        if(gene.get(i) == 1){
           weight += k.getItems().get(i).getWeight();
           profit += k.getItems().get(i).getProfit();
           if( k.getCapacity() < weight){

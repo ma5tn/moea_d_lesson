@@ -3,7 +3,6 @@ package moea_d_lesson;
 import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Collections;
 import java.util.Random;
 
 public class WeightPopulation {
@@ -49,8 +48,7 @@ public class WeightPopulation {
   System.out.println("test");
   }
 
-  public ArrayList<WeightIndivisual> generation(ArrayList<Knapsac> knapsacs){
-    ArrayList<WeightIndivisual> newPopulation = new ArrayList<WeightIndivisual>();
+  public void generation(ArrayList<Knapsac> knapsacs){
     for(WeightIndivisual wi: population){
       //近傍ベクトルからランダムに選択し子をつくる。突然変異も
       int index1 = wi.getNeighborhood().get(rnd.nextInt(WeightIndivisual.NEIGHBORHOOD));
@@ -79,22 +77,15 @@ public class WeightPopulation {
       }
       WeightIndivisual newIndivisual = new WeightIndivisual(knapsacs);
       newIndivisual.setGene(newGene);
-      //候補のArrayListにadd
-      ArrayList<WeightIndivisual> candidateWI = new ArrayList<WeightIndivisual>();
-      for (int i : wi.getNeighborhood()) {
-        candidateWI.add(population.get(i));
+
+      for(int i = wi.getNeighborhood().get(0); i < wi.getNeighborhood().get(WeightIndivisual.NEIGHBORHOOD-1); i++){
+        newIndivisual.setWeight(population.get(i).getWeight());
+        newIndivisual.calcWeightFitness(knapsacs);
+        if(population.get(i).getWeightFitness() < newIndivisual.getWeightFitness()){
+          newIndivisual.setNeighborhood(population.get(i).getNeighborhood());
+          population.set(i, newIndivisual);        }
       }
-      candidateWI.add(newIndivisual);
-      for (WeightIndivisual weightIndivisual : candidateWI) {
-        weightIndivisual.setWeight(wi.getWeight());
-        weightIndivisual.setNeighborhood(wi.getNeighborhood());
-        weightIndivisual.calcWeightFitness(knapsacs);
-      }
-      //優秀な候補を選択しnewPopulationにadd
-      Collections.sort(candidateWI, new WeightIndivisualComparator());
-      newPopulation.add(candidateWI.get(0));
     }
-    return newPopulation;
   }
 
   private void searchNeighborhoodVector(int T){
