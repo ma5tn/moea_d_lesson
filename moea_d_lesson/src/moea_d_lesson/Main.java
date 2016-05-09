@@ -15,11 +15,6 @@ public class Main {
     ArrayList<Knapsac> knapsacs = new ArrayList<Knapsac>(Knapsac.KNAPSAC_NUM);
     DataIOUtils.readData("knapsacTestData.txt", knapsacs);
 
-    for(Knapsac n : knapsacs){
-      System.out.println("capacity " + n.getCapacity());
-      n.printKnapsac();
-    }
-
     WeightPopulation wp = new WeightPopulation(knapsacs);
    // wp.printWeightPopulation();
 

@@ -35,6 +35,10 @@ public class WeightIndivisual extends Indivisual{
     }
 
     //解の修復
+    repairGene(knapsacs);
+  }
+
+  public void repairGene(ArrayList<Knapsac> knapsacs) {
    double weight1 = 0; double weight2 = 0;
    for (int i = 0; i < Knapsac.ITEM_NUM; i++) {
      weight1 += knapsacs.get(0).getItems().get(i).getWeight();

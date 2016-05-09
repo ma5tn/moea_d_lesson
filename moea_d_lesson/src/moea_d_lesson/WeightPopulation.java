@@ -81,6 +81,7 @@ public class WeightPopulation {
       }
       WeightIndivisual newIndivisual = new WeightIndivisual(knapsacs);
       newIndivisual.setGene(newGene);
+      newIndivisual.repairGene(knapsacs);
       newIndivisual.calcFitness(knapsacs);
 
       //外部集団
@@ -88,7 +89,7 @@ public class WeightPopulation {
 
 
       //近傍ベクトル全てに対し，子の方が優っている場合置き換える
-      for(int i = wi.getNeighborhood().get(0); i < wi.getNeighborhood().get(WeightIndivisual.NEIGHBORHOOD-1); i++){
+      for(int i : wi.getNeighborhood()){
         newIndivisual.setWeight(population.get(i).getWeight());
         newIndivisual.calcWeightFitness(knapsacs);
         if(population.get(i).getWeightFitness() < newIndivisual.getWeightFitness()){
@@ -99,6 +100,7 @@ public class WeightPopulation {
     }
   }
 
+  //近傍ベクトルの登録
   private void searchNeighborhoodVector(int T){
     for(int i = 0; i <= DIVISION_NUM; i++){
       ArrayList<Integer> neighborhood = new ArrayList<Integer>(T);
