@@ -50,7 +50,7 @@ public class WeightPopulation {
 
   public void generation(ArrayList<Knapsac> knapsacs){
     for(WeightIndivisual wi: population){
-      //近傍ベクトルからランダムに選択し子をつくる。突然変異も
+      //近傍ベクトルからランダムに選択し子をつくる
       int index1 = wi.getNeighborhood().get(rnd.nextInt(WeightIndivisual.NEIGHBORHOOD));
       int index2 = wi.getNeighborhood().get(rnd.nextInt(WeightIndivisual.NEIGHBORHOOD));
       ArrayList<Integer> newGene = new ArrayList<Integer>(Knapsac.ITEM_NUM);
@@ -63,7 +63,7 @@ public class WeightPopulation {
         }
       }
 
-//      System.out.println(newGene);
+      //子に突然変異を起こす
       for (Integer integer : newGene) {
         int r = rnd.nextInt(100);
         if(r < WeightPopulation.MUTATION_RATE){
@@ -72,18 +72,19 @@ public class WeightPopulation {
           }else{
             integer = 1;
           }
-//          System.out.println(newGene);
         }
       }
       WeightIndivisual newIndivisual = new WeightIndivisual(knapsacs);
       newIndivisual.setGene(newGene);
 
+      //近傍ベクトル全てに対し，子の方が優っている場合置き換える
       for(int i = wi.getNeighborhood().get(0); i < wi.getNeighborhood().get(WeightIndivisual.NEIGHBORHOOD-1); i++){
         newIndivisual.setWeight(population.get(i).getWeight());
         newIndivisual.calcWeightFitness(knapsacs);
         if(population.get(i).getWeightFitness() < newIndivisual.getWeightFitness()){
           newIndivisual.setNeighborhood(population.get(i).getNeighborhood());
-          population.set(i, newIndivisual);        }
+          population.set(i, newIndivisual);
+        }
       }
     }
   }
