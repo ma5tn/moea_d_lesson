@@ -23,6 +23,19 @@ public class Indivisual {
       gene.add(rnd.nextInt(2));
     }
 
+    //解の修復
+   double weight1 = 0; double weight2 = 0;
+   for (int i = 0; i < Knapsac.ITEM_NUM; i++) {
+     weight1 += knapsacs.get(0).getItems().get(i).getWeight();
+     weight2 += knapsacs.get(1).getItems().get(i).getWeight();
+  }
+   while(weight1 > knapsacs.get(0).getCapacity() || weight2 > knapsacs.get(1).getCapacity()){
+     int r = rnd.nextInt(Knapsac.ITEM_NUM);
+     gene.set(r, 0);
+     weight1 -= knapsacs.get(0).getItems().get(r).getWeight();
+     weight2 -= knapsacs.get(1).getItems().get(r).getWeight();
+   }
+
     calcFitness(knapsacs);
   }
 
