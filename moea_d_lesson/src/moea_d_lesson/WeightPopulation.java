@@ -22,6 +22,11 @@ public class WeightPopulation {
    */
   public ArrayList<WeightIndivisual> population = new ArrayList<WeightIndivisual>();
 
+  /*
+   * 外部集団
+   */
+  public ExternalPopulation externalPopulation;
+
   private Random rnd = new Random();
 
   /*
@@ -31,7 +36,6 @@ public class WeightPopulation {
   public WeightPopulation(ArrayList<Knapsac> knapsacs){
     for(int i = 0; i <= DIVISION_NUM; i++){
       for(int j = 0; j <= DIVISION_NUM; j++){
-//        System.out.println(i + ", "+ j);
         if(i + j == DIVISION_NUM){
           WeightIndivisual wp = new WeightIndivisual(knapsacs);
           double weight1 = (double)i/200; double weight2 = (double)j/200;
@@ -45,7 +49,8 @@ public class WeightPopulation {
 
     searchNeighborhoodVector(WeightIndivisual.NEIGHBORHOOD);
 
-  System.out.println("test");
+    //外部集団
+    externalPopulation = new ExternalPopulation(population);
   }
 
   public void generation(ArrayList<Knapsac> knapsacs){
@@ -76,6 +81,11 @@ public class WeightPopulation {
       }
       WeightIndivisual newIndivisual = new WeightIndivisual(knapsacs);
       newIndivisual.setGene(newGene);
+      newIndivisual.calcFitness(knapsacs);
+
+      //外部集団
+      externalPopulation.update(newIndivisual);
+
 
       //近傍ベクトル全てに対し，子の方が優っている場合置き換える
       for(int i = wi.getNeighborhood().get(0); i < wi.getNeighborhood().get(WeightIndivisual.NEIGHBORHOOD-1); i++){
