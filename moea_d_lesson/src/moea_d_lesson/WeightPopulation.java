@@ -3,6 +3,8 @@ package moea_d_lesson;
 import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.Random;
 
 public class WeightPopulation {
@@ -15,7 +17,7 @@ public class WeightPopulation {
   /*
    * 突然変異確率 %
    */
-  public final static int MUTATION_RATE = 5;
+  public final static double MUTATION_RATE = 0.05;
 
   /*
    * 1世代の集団
@@ -47,7 +49,7 @@ public class WeightPopulation {
       }
     }
 
-    searchNeighborhoodVector(WeightIndivisual.NEIGHBORHOOD);
+    searchNeighborhoodVector();
 
     //外部集団
     externalPopulation = new ExternalPopulation(population);
@@ -61,7 +63,14 @@ public class WeightPopulation {
       ArrayList<Integer> newGene = new ArrayList<Integer>(Knapsac.ITEM_NUM);
       int crossoverIndex = rnd.nextInt(Knapsac.ITEM_NUM);
       for(int k = 0; k < Knapsac.ITEM_NUM; k++){
+        /*
         if(k < crossoverIndex){
+          newGene.add(population.get(index1).getGene().get(k));
+        }else{
+          newGene.add(population.get(index2).getGene().get(k));
+        }
+        */
+        if(rnd.nextDouble() < 0.5){
           newGene.add(population.get(index1).getGene().get(k));
         }else{
           newGene.add(population.get(index2).getGene().get(k));
@@ -71,7 +80,7 @@ public class WeightPopulation {
       //子に突然変異を起こす
 
       for (int i = 0; i < newGene.size(); i++) {
-        int r = rnd.nextInt(100);
+        double r = rnd.nextDouble();
         if(r < WeightPopulation.MUTATION_RATE){
           if(newGene.get(i) == 1){
             newGene.set(i, 0);
@@ -96,32 +105,41 @@ public class WeightPopulation {
         if(population.get(i).getWeightFitness() < newIndivisual.getWeightFitness()){
           newIndivisual.setNeighborhood(population.get(i).getNeighborhood());
           population.set(i, newIndivisual);
+//          break;
         }
       }
     }
   }
 
   //近傍ベクトルの登録
-  private void searchNeighborhoodVector(int T){
-    for(int i = 0; i <= DIVISION_NUM; i++){
-      ArrayList<Integer> neighborhood = new ArrayList<Integer>(T);
-      if(i < (double)T/2){
-        for(int k = 0; k < 10; k++){
-          neighborhood.add(k);
-        }
-      }else if(i < DIVISION_NUM - ((double)T/2 - 1)){
-        for(int k = 4; 0 < k; k--){
-          neighborhood.add(i - k);
-        }
-        for(int k = 0; k < 6; k++){
-          neighborhood.add(i + k);
-        }
-      }else{
-        for(int k = 9 ; 0 <= k ; k--){
-          neighborhood.add(DIVISION_NUM - k);
-        }
+  private void searchNeighborhoodVector(){
+
+    for(int j = 0; j <= DIVISION_NUM; j++){
+      ArrayList<Double> w1 = population.get(j).getWeight();
+      ArrayList<ArrayList<Double>> sortArray = new ArrayList<ArrayList<Double>>();
+
+      for (int i = 0; i < DIVISION_NUM + 1; i++) {
+        ArrayList<Double> index_distance_pair = new ArrayList<Double>();
+        ArrayList<Double> w2 = population.get(i).getWeight();
+        double distance = Math.sqrt(Math.pow(w1.get(0)-w2.get(0), 2) + Math.pow(w1.get(1) - w2.get(1), 2));
+        index_distance_pair.add((double) i);
+        index_distance_pair.add(distance);
+        sortArray.add(index_distance_pair);
       }
-      population.get(i).setNeighborhood(neighborhood);
+
+      Collections.sort(sortArray, new Comparator<ArrayList<Double>>(){
+        public int compare(ArrayList<Double> a1, ArrayList<Double> a2){
+          if(a1.get(1) - a2.get(1) < 0) return -1;
+          else if(a1.get(1) - a2.get(1) > 0) return 1;
+          else return 0;
+        }
+      });
+
+      ArrayList<Integer> neighborhood = new ArrayList<Integer>();
+      for (int i = 0; i < WeightIndivisual.NEIGHBORHOOD; i++) {
+        neighborhood.add(sortArray.get(i).get(0).intValue());
+      }
+      population.get(j).setNeighborhood(neighborhood);
     }
   }
 

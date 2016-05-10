@@ -29,10 +29,10 @@ public class Indivisual {
         if(gene.get(i) == 1){
           weight += knapsacs.get(j).getItems().get(i).getWeight();
           profit += knapsacs.get(j).getItems().get(i).getProfit();
-          if( knapsacs.get(j).getCapacity() < weight){
-            profit = 0;
-            break;
-          }
+//          if( knapsacs.get(j).getCapacity() < weight){
+//            profit = 0;
+//            break;
+//          }
         }
       }
       fitness.set(j, profit);

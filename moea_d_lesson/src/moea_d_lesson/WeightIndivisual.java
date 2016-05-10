@@ -7,7 +7,7 @@ public class WeightIndivisual extends Indivisual{
   /*
    * 近傍数T=10
    */
-  public final static int NEIGHBORHOOD = 10;
+  public final static int NEIGHBORHOOD = 5;
 
 
   /*
@@ -49,7 +49,7 @@ public class WeightIndivisual extends Indivisual{
    for (int i = 0; i < Knapsac.ITEM_NUM; i++) {
     if(gene.get(i) == 1) indexes.add(i);
   }
-   while(weight1 > knapsacs.get(0).getCapacity() && weight2 > knapsacs.get(1).getCapacity()){
+   while(weight1 > knapsacs.get(0).getCapacity() || weight2 > knapsacs.get(1).getCapacity()){
      int r = rnd.nextInt(indexes.size());
      int index = indexes.get(r);
      if(gene.get(index) == 1){

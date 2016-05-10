@@ -8,7 +8,7 @@ import java.io.PrintWriter;
 import java.util.ArrayList;
 
 public class Main {
-  public final static int GENERATION_NUM = 1000;
+  public final static int GENERATION_NUM = 10000;
 
   public static void main(String[] args) {
     // TODO 自動生成されたメソッド・スタブ
@@ -26,10 +26,11 @@ public class Main {
     for(int i = 0; i < GENERATION_NUM; i++){
 
       wp.generation(knapsacs);
-      wp.printAllWeightWitness(pw);
-      pw.println("-------------");
+
       wp.printWeightFitnessAverage();
     }
+    pw.println("-------------");
+    wp.printAllWeightWitness(pw);
     pw.close();
     }catch(IOException e){
       System.out.println(e);
