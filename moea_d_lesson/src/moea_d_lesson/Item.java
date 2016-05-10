@@ -3,7 +3,7 @@ package moea_d_lesson;
 public class Item {
   private int profit;
   private int weight;
-  Item(int p, int w){
+  Item(int w, int p){
     setProfit(p);
     setWeight(w);
   }
