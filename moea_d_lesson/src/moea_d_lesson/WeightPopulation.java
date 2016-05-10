@@ -40,7 +40,7 @@ public class WeightPopulation {
       for(int j = 0; j <= DIVISION_NUM; j++){
         if(i + j == DIVISION_NUM){
           WeightIndivisual wp = new WeightIndivisual(knapsacs);
-          double weight1 = (double)i/200; double weight2 = (double)j/200;
+          double weight1 = (double)i/DIVISION_NUM; double weight2 = (double)j/DIVISION_NUM;
           ArrayList<Double> w = new ArrayList<Double>(Arrays.asList(weight1, weight2));
           wp.setWeight(w);
           wp.calcWeightFitness(knapsacs);
