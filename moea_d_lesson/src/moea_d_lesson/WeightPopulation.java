@@ -69,13 +69,14 @@ public class WeightPopulation {
       }
 
       //子に突然変異を起こす
-      for (Integer integer : newGene) {
+
+      for (int i = 0; i < newGene.size(); i++) {
         int r = rnd.nextInt(100);
         if(r < WeightPopulation.MUTATION_RATE){
-          if(integer == 1){
-            integer = 0;
+          if(newGene.get(i) == 1){
+            newGene.set(i, 0);
           }else{
-            integer = 1;
+            newGene.set(i, 1);
           }
         }
       }
@@ -141,7 +142,10 @@ public class WeightPopulation {
 
   public void printAllWeightWitness(PrintWriter pw){
     for (WeightIndivisual weightIndivisual : population) {
-      pw.println(weightIndivisual.getWeightFitness());
+      pw.println(weightIndivisual.getFitness().get(0) + "\t" + weightIndivisual.getFitness().get(1));
+
+    //  pw.println(weightIndivisual.getWeightFitness() + " ," + weightIndivisual.getFitness().get(0) + " ," + weightIndivisual.getFitness().get(1));
+
     }
   }
   public void printWeightFitnessAverage(){
