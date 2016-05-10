@@ -1,6 +1,7 @@
 package moea_d_lesson;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Random;
 
 public class Indivisual {
@@ -13,7 +14,7 @@ public class Indivisual {
   /*
    * 適応度のArrayList
    */
-  protected ArrayList<Double> fitness = new ArrayList<Double>(Knapsac.KNAPSAC_NUM);
+  protected ArrayList<Double> fitness = new ArrayList<>(Arrays.asList(0.0, 0.0));
 
 
   protected Random rnd = new Random();
@@ -22,19 +23,19 @@ public class Indivisual {
   }
 
   protected void calcFitness(ArrayList<Knapsac> knapsacs) {
-    for(Knapsac k: knapsacs){
+    for(int j = 0; j < Knapsac.KNAPSAC_NUM; j++){
       double profit = 0; double weight = 0;
       for(int i = 0; i < Knapsac.ITEM_NUM; i++){
         if(gene.get(i) == 1){
-          weight += k.getItems().get(i).getWeight();
-          profit += k.getItems().get(i).getProfit();
-          if( k.getCapacity() < weight){
+          weight += knapsacs.get(j).getItems().get(i).getWeight();
+          profit += knapsacs.get(j).getItems().get(i).getProfit();
+          if( knapsacs.get(j).getCapacity() < weight){
             profit = 0;
             break;
           }
         }
       }
-      fitness.add(profit);
+      fitness.set(j, profit);
     }
   }
 
