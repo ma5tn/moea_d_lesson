@@ -44,11 +44,19 @@ public class WeightIndivisual extends Indivisual{
      weight1 += knapsacs.get(0).getItems().get(i).getWeight();
      weight2 += knapsacs.get(1).getItems().get(i).getWeight();
    }
-   while(weight1 > knapsacs.get(0).getCapacity() || weight2 > knapsacs.get(1).getCapacity()){
-     int r = rnd.nextInt(Knapsac.ITEM_NUM);
-     gene.set(r, 0);
-     weight1 -= knapsacs.get(0).getItems().get(r).getWeight();
-     weight2 -= knapsacs.get(1).getItems().get(r).getWeight();
+
+   ArrayList<Integer> indexes = new ArrayList<Integer>();
+   for (int i = 0; i < Knapsac.ITEM_NUM; i++) {
+    if(gene.get(i) == 1) indexes.add(i);
+  }
+   while(weight1 > knapsacs.get(0).getCapacity() && weight2 > knapsacs.get(1).getCapacity()){
+     int r = rnd.nextInt(indexes.size());
+     int index = indexes.get(r);
+     if(gene.get(index) == 1){
+       gene.set(r, 0);
+       weight1 -= knapsacs.get(0).getItems().get(index).getWeight();
+       weight2 -= knapsacs.get(1).getItems().get(index).getWeight();
+     }
    }
   }
 
