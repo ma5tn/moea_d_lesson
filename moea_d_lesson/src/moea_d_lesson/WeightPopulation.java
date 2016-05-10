@@ -89,26 +89,35 @@ public class WeightPopulation {
           }
         }
       }
-      WeightIndivisual newIndivisual = new WeightIndivisual(knapsacs);
-      newIndivisual.setGene(newGene);
-      newIndivisual.repairGene(knapsacs);
-      newIndivisual.calcFitness(knapsacs);
+      WeightIndivisual childIndivisual = new WeightIndivisual(knapsacs);
+      childIndivisual.setGene(newGene);
+      childIndivisual.repairGene(knapsacs);
+      childIndivisual.calcFitness(knapsacs);
 
       //外部集団
-      externalPopulation.update(newIndivisual);
+      externalPopulation.update(childIndivisual);
 
 
       //近傍ベクトル全てに対し，子の方が優っている場合置き換える
       for(int i : wi.getNeighborhood()){
-        newIndivisual.setWeight(population.get(i).getWeight());
-        newIndivisual.calcWeightFitness(knapsacs);
-        if(population.get(i).getWeightFitness() < newIndivisual.getWeightFitness()){
-          newIndivisual.setNeighborhood(population.get(i).getNeighborhood());
+        childIndivisual.setWeight(population.get(i).getWeight());
+        childIndivisual.calcWeightFitness(knapsacs);
+        if(population.get(i).getWeightFitness() < childIndivisual.getWeightFitness()){
+          WeightIndivisual newIndivisual = new WeightIndivisual(knapsacs);
+          newIndivisual.setFitness(new ArrayList<>(childIndivisual.getFitness()));
+          newIndivisual.setGene(new ArrayList<>(childIndivisual.getGene()));
+          newIndivisual.setNeighborhood(new ArrayList<>(population.get(i).getNeighborhood()));
+          newIndivisual.setWeight(new ArrayList<>(childIndivisual.getWeight()));
+          newIndivisual.setWeightFitness(childIndivisual.getWeightFitness());
           population.set(i, newIndivisual);
 //          break;
         }
       }
     }
+    for (WeightIndivisual weightIndivisual : population) {
+      System.out.println(weightIndivisual.getNeighborhood());
+    }
+    System.out.println("--------------");
   }
 
   //近傍ベクトルの登録
